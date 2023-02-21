@@ -16,13 +16,13 @@ jobs:
         color: [pink, blue, purple]
         include:
           - color: pink
-            regex_filter: ^pos2*
+            regex_filter: ^abc*
             number: 123
           - color: blue 
-            regex_filter: ^pos3*
+            regex_filter: ^def*
             number: 456
-          - color: puple
-            regex_filter: pos4*
+          - color: purple
+            regex_filter: ghi*
             number: 789
     runs-on: ubuntu-latest
     env:
@@ -36,4 +36,4 @@ jobs:
         uses: actions/checkout@v2 # checkout the repository content to github runner.
 
       - name: Echo matrix var
-        run: echo ${{ env.repo_filter_regex }} ${{ env.config_number }}
+        run: echo ${{ env.color_color }} ${{ env.repo_filter_regex }} ${{ env.config_number }}
