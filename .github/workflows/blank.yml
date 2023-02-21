@@ -2,35 +2,38 @@
 
 name: CI
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
+  workflow_dispatch:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+    
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  sync:
+    strategy:
+      matrix: 
+        color: [pink, blue, purple]
+        include:
+          - color: pink
+            regex_filter: ^pos2*
+            number: 123
+          - color: blue 
+            regex_filter: ^pos3*
+            number: 456
+          - color: red
+            regex_filter: pos4*
+            number: 789
     runs-on: ubuntu-latest
+    env:
+      repo_type: private
+      color_color: ${{ matrix.color }}
+      repo_filter_regex: ${{ matrix.regex_filter }}
+      config_number: ${{ matrix.number }}
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - name: checkout repo content
+        uses: actions/checkout@v2 # checkout the repository content to github runner.
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - name: Echo matrix var
+        run: echo ${{ env.repo_filter_regex }} ${{ env.config_number }}
