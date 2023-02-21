@@ -22,7 +22,7 @@ jobs:
             regex_filter: ^def*
             number: 456
           - color: purple
-            regex_filter: ghi*
+            regex_filter: ^ghi*
             number: 789
     runs-on: ubuntu-latest
     env:
