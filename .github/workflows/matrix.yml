@@ -21,7 +21,7 @@ jobs:
           - color: blue 
             regex_filter: ^pos3*
             number: 456
-          - color: red
+          - color: puple
             regex_filter: pos4*
             number: 789
     runs-on: ubuntu-latest
